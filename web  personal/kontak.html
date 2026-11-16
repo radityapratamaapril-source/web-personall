@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak & Komentar | RadityaDev Portofolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        mono: ['"Fira Code"', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            bg: '#09090b',
+                            card: '#111115',
+                            border: '#1f1f26'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #09090b;
+            color: #f4f4f5;
+            overflow-x: hidden;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        .glass {
+            background: rgba(17, 17, 21, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: linear-gradient(180deg, rgba(24, 24, 30, 0.7) 0%, rgba(15, 15, 19, 0.85) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.15);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar untuk horizontal scroll komentar */
+        .no-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .no-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 9999px;
+        }
+        .no-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 9999px;
+        }
+        .no-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.6);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.35; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.08); }
+        }
+        .animate-glow {
+            animation: pulse-slow 8s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen flex flex-col selection:bg-sky-500/30 selection:text-sky-200">
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-sky-500/20 rounded-full blur-[130px] animate-glow"></div>
+        <div class="absolute top-1/2 -right-32 w-[28rem] h-[28rem] bg-indigo-600/15 rounded-full blur-[140px] animate-glow" style="animation-delay: 3s;"></div>
+    </div>
+    
+    <header class="sticky top-0 z-50 px-4 pt-4">
+        <nav class="max-w-6xl mx-auto glass rounded-2xl px-5 py-3.5 flex items-center justify-between">
+            <a href="beranda.html" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-xl overflow-hidden bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+                    <img src="R.png" alt="Logo" class="w-full h-full object-cover">
+                </div>
+                <span class="font-display font-bold text-lg tracking-tight text-white">Raditya<span class="text-sky-400">Dev.</span></span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-1.5">
+                <a href="beranda.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition">Beranda</a>
+                <a href="tentang.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition">Tentang</a>
+                <a href="portofolio.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition">Portofolio</a>
+                <a href="kontak.html" class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-white/10 border border-white/10 transition">Kontak</a>
+            </div>
+
+            <div class="hidden md:flex items-center gap-3">
+                <a href="https://github.com/radityapratamaapril-source" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 font-semibold text-sm hover:bg-sky-400 hover:text-zinc-950 transition shadow-lg shadow-white/5">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                    <span>GitHub</span>
+                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-70"></i>
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-zinc-300 hover:bg-white/10 transition" aria-label="Buka Menu">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="hidden md:hidden max-w-6xl mx-auto mt-2 glass rounded-2xl p-4 space-y-1.5">
+            <a href="beranda.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-300 hover:bg-white/5">Beranda</a>
+            <a href="tentang.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-300 hover:bg-white/5">Tentang</a>
+            <a href="portofolio.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-300 hover:bg-white/5">Portofolio</a>
+            <a href="kontak.html" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-sky-400 bg-sky-500/10">Kontak</a>
+
+            <div class="pt-2 border-t border-white/10">
+                <a href="https://github.com/radityapratamaapril-source" target="_blank" rel="noopener noreferrer"
+                   class="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-white text-zinc-950 font-semibold text-sm hover:bg-sky-400 transition">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-14 md:py-20 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+            <span class="text-xs font-mono uppercase tracking-widest text-sky-400">Get In Touch</span>
+            <h1 class="font-display text-3xl sm:text-5xl font-bold text-gradient">Kontak</h1>
+            <p class="text-zinc-400 text-sm sm:text-base">Ada yang mau didiskusikan atau sekadar menyapa? Kirim pesan atau tinggalkan komentar di bawah ini.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-5 space-y-6">
+                <div class="glass-card rounded-3xl p-7 space-y-5">
+                    <h2 class="font-display text-xl font-bold text-white">Kirim Pesan ke WhatsApp</h2>
+                    <form id="whatsapp-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-400 mb-1.5">Nama</label>
+                            <input type="text" id="wa-name" required placeholder="Masukkan nama kamu"
+                                   class="w-full px-4 py-3 rounded-xl bg-zinc-950/70 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-sky-400 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-400 mb-1.5">No. Telepon / WhatsApp Anda</label>
+                            <input type="tel" id="wa-phone" required placeholder="Contoh: 08123456789"
+                                   class="w-full px-4 py-3 rounded-xl bg-zinc-950/70 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-sky-400 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-400 mb-1.5">Pesan</label>
+                            <textarea id="wa-message" rows="4" required placeholder="Tulis pesan atau ide kolaborasi..."
+                                      class="w-full px-4 py-3 rounded-xl bg-zinc-950/70 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-sky-400 transition"></textarea>
+                        </div>
+                        <button type="submit"
+                                class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-500 transition shadow-lg shadow-emerald-600/20">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            <span>Kirim ke WhatsApp</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6 space-y-4">
+                    <div class="text-xs font-mono uppercase tracking-wider text-zinc-400">Find Me On</div>
+                    <a href="https://github.com/radityapratamaapril-source" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center justify-between p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-sky-400/50 transition group">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-white/10 text-white flex items-center justify-center">
+                                <i data-lucide="github" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-white">GitHub</div>
+                                <div class="text-xs text-zinc-400">@radityadev</div>
+                            </div>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-zinc-400 group-hover:text-sky-400 transition"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 glass-card rounded-3xl p-7 flex flex-col justify-between space-y-6">
+                <div class="space-y-5">
+                    <div class="flex items-center justify-between">
+                        <h2 class="font-display text-xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="messages-square" class="w-5 h-5 text-sky-400"></i>
+                            <span>Komentar Pengunjung</span>
+                        </h2>
+                        <span id="comment-count" class="text-xs font-mono px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400">3 Komentar</span>
+                    </div>
+
+                    <form id="comment-form" class="p-4 rounded-2xl bg-zinc-950/60 border border-white/10 space-y-3">
+                        <input type="text" id="comment-name" required placeholder="Nama kamu..."
+                               class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-sky-400">
+                        <textarea id="comment-text" rows="2" required placeholder="Tulis komentar atau dukungan..."
+                                  class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-sky-400"></textarea>
+                        <button type="submit"
+                                class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 font-semibold text-xs hover:bg-sky-400 transition">
+                            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                            <span>Kirim Komentar</span>
+                        </button>
+                    </form>
+
+                    <div id="comment-list" class="flex gap-4 overflow-x-auto no-scrollbar pb-3 pt-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto border-t border-white/10 bg-zinc-950/60 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <a href="beranda.html" class="font-display font-bold text-xl text-white">Raditya<span class="text-sky-400">.dev</span></a>
+                <p class="text-zinc-400 text-sm mt-1">Membangun pengalaman web modern dengan presisi kode dan desain interaktif.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-5 text-sm text-zinc-400">
+                <a href="beranda.html" class="hover:text-white transition">Beranda</a>
+                <a href="tentang.html" class="hover:text-white transition">Tentang</a>
+                <a href="portofolio.html" class="hover:text-white transition">Portofolio</a>
+                <a href="kontak.html" class="hover:text-white transition">Kontak</a>
+                <a href="https://github.com/radityapratamaapril-source" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sky-400 hover:text-sky-300 font-medium transition">
+                    <i data-lucide="github" class="w-4 h-4"></i> GitHub
+                </a>
+            </div>
+        </div>
+        <div class="border-t border-white/5 py-4 text-center text-xs text-zinc-500">
+            &copy; 2026 RadityaDev.
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        const whatsappForm = document.getElementById('whatsapp-form');
+        if (whatsappForm) {
+            whatsappForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('wa-name').value.trim();
+                const phone = document.getElementById('wa-phone').value.trim();
+                const message = document.getElementById('wa-message').value.trim();
+
+                const myWhatsAppNumber = "6282298648028"; 
+
+                const text = `Halo Raditya,\n\nIgin mengirim pesan dari portofolio:\n*Nama:* ${name}\n*No. Telepon/WA:* ${phone}\n*Pesan:* ${message}`;
+                const encodedText = encodeURIComponent(text);
+
+                window.open(`https://wa.me/${myWhatsAppNumber}?text=${encodedText}`, '_blank');
+                this.reset();
+            });
+        }
+
+        function getTimeAgo(timestamp) {
+            if (!timestamp || isNaN(timestamp)) return "Baru saja";
+            const now = new Date().getTime();
+            const elapsedSeconds = Math.floor((now - timestamp) / 1000);
+
+            if (elapsedSeconds < 60) return "Baru saja";
+            const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+            if (elapsedMinutes < 60) return `${elapsedMinutes} menit lalu`;
+            const elapsedHours = Math.floor(elapsedMinutes / 60);
+            if (elapsedHours < 24) return `${elapsedHours} jam lalu`;
+            const elapsedDays = Math.floor(elapsedHours / 24);
+            return `${elapsedDays} hari lalu`;
+        }
+
+        const defaultComments = [
+            { name: "Rizky Pratama", text: "Keren banget portofolionya Raditya! Semangat terus ngodingnya.", timestamp: Date.now() - 120000 },
+            { name: "Nadia Putri", text: "Struktur multi-page pakai Tailwind CSS-nya rapi dan responsif!", timestamp: Date.now() - 86400000 },
+            { name: "Dimas Saputra", text: "Izin mampir ke GitHub-nya ya bang, mantap proyek EXPO & Laravel-nya.", timestamp: Date.now() - 172800000 }
+        ];
+
+        function loadComments() {
+            let savedComments = localStorage.getItem('raditya_portfolio_comments');
+            let comments = [];
+
+            try {
+                comments = savedComments ? JSON.parse(savedComments) : defaultComments;
+                if (!Array.isArray(comments) || comments.length === 0 || typeof comments[0].timestamp !== 'number') {
+                    comments = defaultComments;
+                }
+            } catch (e) {
+                comments = defaultComments;
+            }
+
+            const commentList = document.getElementById('comment-list');
+            const commentCount = document.getElementById('comment-count');
+            if (!commentList) return;
+
+            commentList.innerHTML = '';
+            comments.forEach(c => {
+                const item = document.createElement('div');
+                item.className = 'min-w-[280px] sm:min-w-[320px] max-w-[320px] flex-shrink-0 p-4 rounded-2xl bg-white/[0.03] border border-white/5 space-y-1.5';
+                
+                const timeString = getTimeAgo(c.timestamp);
+
+                item.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sm text-white">${(c.name || "Anonim").replace(/</g, "&lt;")}</span>
+                        <span class="text-[11px] text-zinc-500">${timeString}</span>
+                    </div>
+                    <p class="text-sm text-zinc-300 leading-relaxed">${(c.text || "").replace(/</g, "&lt;")}</p>
+                `;
+                commentList.appendChild(item);
+            });
+
+            if (commentCount) {
+                commentCount.textContent = comments.length + ' Komentar';
+            }
+        }
+
+        const commentForm = document.getElementById('comment-form');
+        if (commentForm) {
+            commentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const nameInput = document.getElementById('comment-name');
+                const textInput = document.getElementById('comment-text');
+                const name = nameInput.value.trim();
+                const text = textInput.value.trim();
+                if (!name || !text) return;
+
+                let savedComments = localStorage.getItem('raditya_portfolio_comments');
+                let comments = [];
+                try {
+                    comments = savedComments ? JSON.parse(savedComments) : defaultComments;
+                    if (!Array.isArray(comments)) comments = defaultComments;
+                } catch (e) {
+                    comments = defaultComments;
+                }
+
+                const newComment = {
+                    name: name,
+                    text: text,
+                    timestamp: Date.now()
+                };
+
+                comments.unshift(newComment);
+                localStorage.setItem('raditya_portfolio_comments', JSON.stringify(comments));
+
+                loadComments();
+                nameInput.value = '';
+                textInput.value = '';
+            });
+        }
+
+        loadComments();
+    </script>
+</body>
+</html>
